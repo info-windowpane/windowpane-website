@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Projects - Windowpane</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  /* ===== Base Page ===== */
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== Top Menu Bar ===== */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 20px;
+    background: white;
+    border-bottom: 1px solid #eee; /* Optional: adds a subtle line */
+  }
+
+  /* Windowpane Title */
+  .top-bar .title {
+    font-family: 'Baskerville', serif;
+    font-weight: 600; 
+    letter-spacing: 20px;
+    font-size: 1rem; 
+    color: black;
+  }
+
+  /* Info and Previous Links */
+  .top-bar .info-link,
+  .top-bar .previous-link {
+    margin-left: 40px; 
+    font-family: Arial, sans-serif;
+    font-size: 0.70rem;
+    color: black;
+  }
+
+  /* General link styling for top bar */
+  .top-bar a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ===== Main Content Area ===== */
+  .content-wrapper {
+    padding: 20px 40px 20px 355px;
+    flex: 1;
+  }
+  .content-wrapper h1 {
+    font-family: 'Baskerville', serif;
+    font-weight: 400;
+  }
+  .content-wrapper p {
+    font-size: 0.70rem; /* Match font size of nav links */
+    line-height: 1.5;
+    max-width: 700px;
+    margin: 0; /* Remove default paragraph margins */
+  }
+  .poster-image {
+    display: block;
+    margin-top: 8px; /* Adds a small space between title and image */
+    max-width: 700px; /* Matches the max-width of the text */
+    width: 100%;      /* Ensures it's responsive */
+    height: auto;     /* Maintains aspect ratio */
+  }
+  .project-item {
+    margin-bottom: 35px; /* Creates space between each project entry */
+  }
+  .project-item:last-child {
+    margin-bottom: 0; /* Removes space after the last project */
+  }
+
+  /* ===== Responsive Design for Mobile ===== */
+  @media (max-width: 768px) {
+    /* Adjust top bar for smaller screens */
+    .top-bar .title {
+      letter-spacing: 10px;
+    }
+    .top-bar .info-link,
+    .top-bar .previous-link {
+      margin-left: 20px;
+    }
+    /* Remove large padding and center content on mobile */
+    .content-wrapper {
+      padding: 20px 25px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Menu Bar -->
+<div class="top-bar">
+  <a href="index.html" class="title">windowpane</a>
+  <a href="information.html" class="info-link">Information</a>
+  <a href="projects.html" class="previous-link">Projects</a>
+</div>
+
+<!-- Main Content -->
+<div class="content-wrapper">
+  <div class="project-item">
+    <p><i>Centerfold</i>, Emily Blundell Owers, 2025</p>
+    <img src="images/windowweb21.jpg" alt="Poster for Centerfold project" class="poster-image">
+  </div>
+  <div class="project-item">
+    <p><i>Light Leaks</i>, Inez de Rijke, 2025</p>
+    <img src="images/lightleaks.jpg" alt="Poster for Light Leaks project" class="poster-image">
+  </div>
+  <div class="project-item">
+    <p><i>False Start</i>, Inez de Rijke, 2025</p>
+    <img src="images/falsestart.jpg" alt="Poster for False Start project" class="poster-image">
+  </div>
+</div>
+
+</body>
+</html>
