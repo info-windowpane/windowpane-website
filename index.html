@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Windowpane</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  /* ===== Base Page ===== */
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== Top Menu Bar ===== */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 20px;
+    background: white;
+  }
+
+  /* Windowpane Title */
+  .top-bar .title {
+    font-family: 'Baskerville', serif;
+    font-weight: 600; 
+    letter-spacing: 20px;
+    font-size: 1rem; 
+    color: black;
+  }
+
+  /* Info and Previous Links */
+  .top-bar .info-link,
+  .top-bar .previous-link {
+    margin-left: 40px; 
+    font-family: Arial, sans-serif;
+    font-size: 0.70rem;
+    color: black;
+  }
+
+  /* General link styling for top bar */
+  .top-bar a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ===== Grid Wrapper ===== */
+  .grid-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5px; 
+  }
+
+  /* ===== Grid Layout ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, auto);
+    width: 100%;
+    max-height: auto;
+    gap: 5px;
+    background: white;
+  }
+
+  /* ===== Grid Cells ===== */
+  .cell {
+    overflow: hidden;
+    background: white;
+  }
+
+  .cell img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 768 / 540;
+    display: block;
+  }
+
+  /* ===== Modal (Lightbox) ===== */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+  }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    max-width: 90%;
+    max-height: 90vh; /* Use viewport height */
+  }
+
+  /* Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #000;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #777;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* ===== Responsive Design for Mobile ===== */
+  @media (max-width: 768px) {
+    /* Adjust top bar for smaller screens */
+    .top-bar .title {
+      letter-spacing: 10px;
+    }
+    .top-bar .info-link,
+    .top-bar .previous-link {
+      margin-left: 20px;
+    }
+    /* Change grid to 2 columns on mobile */
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Menu Bar -->
+<div class="top-bar">
+  <a href="index.html" class="title">windowpane</a>
+  <a href="information.html" class="info-link">Information</a>
+  <a href="projects.html" class="previous-link">Projects</a>
+</div>
+
+<!-- Grid Container -->
+<div class="grid-wrapper">
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- The Modal for displaying larger images -->
+<div id="imageModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
+<script>
+  const imageFolder = "images/";
+
+  // Explicit list of 20 windowweb images
+  const windowWebImages = [
+    "windowweb.jpg",
+    "windowweb2.jpg",
+    "windowweb3.jpg",
+    "windowweb4.jpg",
+    "windowweb5.jpg",
+    "windowweb6.jpg",
+    "windowweb7.jpg",
+    "windowweb8.jpg",
+    "windowweb9.jpg",
+    "windowweb10.jpg",
+    "windowweb11.jpg",
+    "windowweb12.jpg",
+    "windowweb13.jpg",
+    "windowweb14.jpg",
+    "windowweb15.jpg",
+    "windowweb16.jpg",
+    "windowweb17.jpg",
+    "windowweb18.jpg",
+    "windowweb19.jpg",
+    "windowweb20.jpg"
+  ];
+
+  /* ===== Shuffle Function ===== */
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const grid = document.getElementById("grid");
+
+  // Get modal elements
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  const closeBtn = document.querySelector(".close");
+
+  // Shuffle windowweb images
+  const shuffledWindowWeb = shuffle([...windowWebImages]);
+
+  // Display all 20 images
+  const finalImages = shuffledWindowWeb;
+  finalImages.forEach(filename => {
+    const cell = document.createElement("div");
+    cell.className = "cell";
+
+    const img = document.createElement("img");
+    img.src = imageFolder + filename;
+
+    // Add click listener to open modal
+    img.onclick = function() {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+    }
+
+    cell.appendChild(img);
+    grid.appendChild(cell);
+  });
+
+  // When the user clicks on <span> (x), close the modal
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
+  // When the user clicks anywhere on the modal background, close it
+  modal.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+
+</html>
